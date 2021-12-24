@@ -1,0 +1,2 @@
+files/** filter=git-crypt diff=git-crypt
+vars/** filter=git-crypt diff=git-crypt

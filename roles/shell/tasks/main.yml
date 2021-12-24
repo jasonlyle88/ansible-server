@@ -1,0 +1,36 @@
+- name: Install ZSH
+  community.general.pacman:
+    state: present
+    name: 'zsh'
+
+- name: Install oh-my-zsh
+  ansible.builtin.git:
+    repo: https://github.com/robbyrussell/oh-my-zsh
+    dest: ~/.oh-my-zsh
+    update: no
+
+- name: Install zsh-autosuggestions
+  ansible.builtin.git:
+    repo: https://github.com/zsh-users/zsh-autosuggestions.git
+    dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+    update: no
+
+- name: Install zsh-syntax-highlighting
+  ansible.builtin.git:
+    repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+    dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+    update: no
+
+- name: Install powerlevel10k theme
+  ansible.builtin.git:
+    repo: https://github.com/romkatv/powerlevel10k.git
+    dest: ~/.oh-my-zsh/custom/themes/powerlevel10k
+    update: no
+
+- name: Set ZSH as default shell
+  become: yes
+  ansible.builtin.shell:
+    cmd: ZSHLOC=$(which zsh); DEFAULTSHELL=$(awk -F ":" -v user="{{ ansible_user_id }}" 'user==$1 { print $NF }' /etc/passwd); if [ "${DEFAULTSHELL}" != "${ZSHLOC}" ]; then chsh -s "${ZSHLOC}" "{{ ansible_user_id }}" > /dev/null; printf "%s" "$?"; else printf "%s" "-1"; fi
+  register: zsh_for_user
+  changed_when: zsh_for_user.stdout | int == 0
+  failed_when: zsh_for_user.stdout | int >= 1

@@ -1,0 +1,38 @@
+- name: Install Snap
+  community.general.pacman:
+    name: snapd
+    state: present
+
+- name: Enable snapd socket
+  become: true
+  ansible.builtin.systemd:
+    name: "snapd.socket"
+    enabled: yes
+
+- name: Enable snapd service
+  become: true
+  ansible.builtin.systemd:
+    name: "snapd.service"
+    enabled: yes
+
+- name: Enable classic snap support
+  become: true
+  ansible.builtin.file:
+    src: "/var/lib/snapd/snap"
+    dest: "/snap"
+    state: link
+
+- name: Install snap packages
+  become: true
+  with_items: "{{ snap.packages_main }}"
+  community.general.snap:
+    state: present
+    name: "{{ item }}"
+
+- name: Install classic snap packages
+  become: true
+  with_items: "{{ snap.packages_classic }}"
+  community.general.snap:
+    classic: yes
+    state: present
+    name: "{{ item }}"

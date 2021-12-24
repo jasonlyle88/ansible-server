@@ -1,0 +1,6 @@
+- name: Enable SSH
+  become: true
+  systemd:
+    name: sshd.service
+    state: started
+    enabled: yes

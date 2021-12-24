@@ -1,0 +1,6 @@
+- name: Enable firewall
+  become: true
+  community.general.ufw:
+    state: enabled
+
+#TODO

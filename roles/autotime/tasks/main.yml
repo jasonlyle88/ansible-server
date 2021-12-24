@@ -1,0 +1,7 @@
+- name: Set time and date automatically
+  become: true
+  ansible.builtin.shell:
+    cmd: if [ "$(timedatectl show -p NTP)" == "NTP=no" ]; then timedatectl set-ntp true; printf "%s" "$?"; else printf "%s" "-1"; fi
+  register: autotime
+  changed_when: autotime.stdout | int == 0
+  failed_when: autotime.stdout | int >= 1

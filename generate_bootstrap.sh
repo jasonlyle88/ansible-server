@@ -5,8 +5,6 @@ scriptDir="$(dirname "${BASH_SOURCE[0]}")"
 function main() {
     local filesDirName="files"
     local filesDir="${scriptDir}/${filesDirName}"
-    local sshDirName="ssh"
-    local sshDir="${filesDir}/${sshDirName}"
     local gpgDirName="gpg"
     local gpgDir="${filesDir}/${gpgDirName}"
     local bootstrapScriptName="bootstrap.sh"
@@ -22,12 +20,15 @@ function main() {
     mkdir "${bootstrapDir}"
 
     cp -a "${bootstrapScript}" "${bootstrapDir}"
-    cp -a "${sshDir}" "${bootstrapDir}"
     cp -a "${gpgDir}" "${bootstrapDir}"
 
     #TODO: Remove this for final version.. this is just to make testing on
     #TODO: the vm easier
+    if [ -f "${bootstrapDirName}.iso" ]; then
+        rm "${bootstrapDirName}.iso"
+    fi
     hdiutil makehybrid -iso -joliet -o "${bootstrapDirName}" "${bootstrapDir}"
+    #TODO: End remove block
 
     return 0
 }

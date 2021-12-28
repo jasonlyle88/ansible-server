@@ -1,0 +1,8 @@
+---
+- name: Install AUR packages
+  with_items: "{{ jml_packages }}"
+  community.general.pacman:
+    executable: yay
+    state: present
+    name: "{{ item.name }}"
+    extra_args: "{{ '--removemake' if item.remove_make }}"

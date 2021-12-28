@@ -6,15 +6,10 @@
   - vars/main.yml
 
   roles:
-  - role: packages
+  - role: packages_official
     vars:
-      jml_type: pacman_main
       jml_packages: "{{ packages.main }}"
-  - role: packages
-    vars:
-      jml_type: pacman_deps
-      jml_packages: "{{ packages.addon }}"
-  - role: packages
+  - role: packages_aur
     vars:
       jml_type: aur
       jml_packages: "{{ packages.aur }}"

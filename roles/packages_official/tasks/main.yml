@@ -1,0 +1,9 @@
+---
+- name: Install packages from manjaro official repo
+  become: yes
+  with_items: "{{ jml_packages }}"
+  community.general.pacman:
+    executable: pacman
+    state: present
+    name: "{{ item.name }}"
+    extra_args: "{{ '--asdeps' if item.dep_name }}"

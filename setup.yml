@@ -8,8 +8,8 @@
   roles:
   - role: packages2
     vars:
-      type: pacman_main
-      packages: "{{ packages.main }}"
+      jml_type: pacman_main
+      jml_packages: "{{ packages.main }}"
   # - firewall
   # - autotime
   # - hostname

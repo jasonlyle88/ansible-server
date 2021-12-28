@@ -11,11 +11,10 @@
   - hostname
   - role: packages_official
     vars:
-      jml_packages: "{{ packages.main }}"
+      official_packages: "{{ packages.main }}"
   - role: packages_aur
     vars:
-      jml_type: aur
-      jml_packages: "{{ packages.aur }}"
+      aur_packages: "{{ packages.aur }}"
   - snap
   - users_and_roles
   - ssh

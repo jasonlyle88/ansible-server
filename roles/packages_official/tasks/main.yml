@@ -1,7 +1,7 @@
 ---
 - name: Install packages from manjaro official repo
   become: yes
-  with_items: "{{ jml_packages }}"
+  with_items: "{{ official_packages }}"
   community.general.pacman:
     executable: pacman
     state: present

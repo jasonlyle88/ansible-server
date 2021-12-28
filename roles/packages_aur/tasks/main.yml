@@ -1,6 +1,6 @@
 ---
 - name: Install AUR packages
-  with_items: "{{ jml_packages }}"
+  with_items: "{{ aur_packages }}"
   community.general.pacman:
     executable: yay
     state: present

@@ -1,30 +1,28 @@
 ---
-- name: Install main packages
+- name: Install pacman main packages
   become: yes
-  with_items: "{{ packages.main }}"
+  when: jml_type == "pacman_main"
+  with_items: "{{ jml_packages }}"
   community.general.pacman:
+    executable: pacman
     state: present
     name: "{{ item }}"
 
-- name: Install dependent packages
+- name: Install pacman dependent packages
   become: yes
-  with_items: "{{ packages.addon }}"
+  when: jml_type == "pacman_deps"
+  with_items: "{{ jml_packages }}"
   community.general.pacman:
-    extra_args: "--asdeps"
+    executable: pacman
     state: present
     name: "{{ item }}"
+    extra_args: "--asdeps"
 
 - name: Install AUR packages
-  with_items: "{{ packages.aur }}"
+  when: jml_type == "aur"
+  with_items: "{{ jml_packages }}"
   community.general.pacman:
     executable: yay
     state: present
-    name: "{{ item }}"
-
-- name: Install AUR packages and remove make packages
-  with_items: "{{ packages.aur_remove_make }}"
-  community.general.pacman:
-    executable: yay
-    extra_args: "--removemake"
-    state: present
-    name: "{{ item }}"
+    name: "{{ item.name }}"
+    extra_args: {{ "--removemake" if item.remove_make }}

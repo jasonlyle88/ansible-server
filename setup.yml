@@ -19,6 +19,3 @@
   # - ssh
   # - shell
   # - docker
-
-# TODO: Look into getting rid of warning at beginning
-# https://docs.ansible.com/ansible/latest/reference_appendices/config.html#envvar-ANSIBLE_PYTHON_INTERPRETER

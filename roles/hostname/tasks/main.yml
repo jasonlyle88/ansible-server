@@ -2,4 +2,4 @@
 - name: Set system hostname
   become: yes
   hostname:
-    name: '{{ system.hostname }}'
+    name: "{{ hostname }}"

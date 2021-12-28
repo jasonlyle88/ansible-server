@@ -24,15 +24,8 @@
 
 - name: Install snap packages
   become: true
-  with_items: "{{ snap.packages_main }}"
+  with_items: "{{ snap_packages }}"
   community.general.snap:
-    state: present
-    name: "{{ item }}"
-
-- name: Install classic snap packages
-  become: true
-  with_items: "{{ snap.packages_classic }}"
-  community.general.snap:
-    classic: yes
-    state: present
-    name: "{{ item }}"
+    state: latest
+    name: "{{ item.name }}"
+    classic: "{{ item.classic }}"

@@ -17,7 +17,9 @@
   - role: packages_aur
     vars:
       aur_packages: "{{ packages.aur }}"
-  - snap
+  - role: packages_snap
+    vars:
+      snap_packages: '{{ packages.snap }}'
   - users_and_roles
   - ssh
   - shell

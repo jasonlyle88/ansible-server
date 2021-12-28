@@ -6,7 +6,7 @@
   - vars/main.yml
 
   roles:
-  - packages2
+  - role: packages2
     vars:
       type: pacman_main
       packages: "{{ packages.main }}"

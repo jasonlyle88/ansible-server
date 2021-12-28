@@ -1,7 +1,7 @@
 ---
 - name: Install pacman main packages
   become: yes
-  when: "{{ type }}" == "pacman_main"
+  when: type == "pacman_main"
   with_items: "{{ packages }}"
   community.general.pacman:
     state: latest

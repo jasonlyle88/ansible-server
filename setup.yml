@@ -6,15 +6,19 @@
   - vars/main.yml
 
   roles:
-  - firewall
-  - autotime
-  - hostname
-  - packages
-  - snap
-  - users_and_roles
-  - ssh
-  - shell
-  - docker
+  - packages2
+    vars:
+      type: pacman_main
+      packages: "{{ packages.main }}"
+  # - firewall
+  # - autotime
+  # - hostname
+  # - packages
+  # - snap
+  # - users_and_roles
+  # - ssh
+  # - shell
+  # - docker
 
 # TODO: Look into getting rid of warning at beginning
 # https://docs.ansible.com/ansible/latest/reference_appendices/config.html#envvar-ANSIBLE_PYTHON_INTERPRETER

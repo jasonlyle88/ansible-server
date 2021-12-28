@@ -26,6 +26,6 @@
   become: true
   with_items: "{{ snap_packages }}"
   community.general.snap:
-    state: latest
+    state: present
     name: "{{ item.name }}"
     classic: "{{ item.classic }}"

@@ -6,6 +6,9 @@
   - vars/main.yml
 
   roles:
+  - firewall
+  - autotime
+  - hostname
   - role: packages_official
     vars:
       jml_packages: "{{ packages.main }}"
@@ -13,12 +16,8 @@
     vars:
       jml_type: aur
       jml_packages: "{{ packages.aur }}"
-  # - firewall
-  # - autotime
-  # - hostname
-  # - packages
-  # - snap
-  # - users_and_roles
-  # - ssh
-  # - shell
-  # - docker
+  - snap
+  - users_and_roles
+  - ssh
+  - shell
+  - docker

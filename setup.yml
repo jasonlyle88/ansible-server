@@ -13,14 +13,20 @@
       hostname: '{{ system.hostname }}'
   - role: packages_official
     vars:
-      official_packages: "{{ packages.main }}"
+      official_packages: '{{ packages.main }}'
   - role: packages_aur
     vars:
-      aur_packages: "{{ packages.aur }}"
+      aur_packages: '{{ packages.aur }}'
   - role: packages_snap
     vars:
       snap_packages: '{{ packages.snap }}'
-  - users_and_roles
+  - role: users
+    vars:
+      users: '{{ system.users }}'
+  - role: user_groups
+    vars:
+      username: '{{ ansible_user_id }}'
+      groups: '{{ system.user_groups }}'
   - ssh
   - shell
   - docker

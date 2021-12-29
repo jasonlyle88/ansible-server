@@ -1,0 +1,9 @@
+---
+- name: Add user to groups
+  become: yes
+  with_items: '{{ groups }}'
+  user:
+    state: present
+    append: yes
+    name: '{{ username }}'
+    groups: '{{ item }}'

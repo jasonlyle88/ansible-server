@@ -1,7 +1,7 @@
 ---
 - name: Setup system groups
   become: yes
-  with_items: '{{ system.users_and_groups }}'
+  with_items: '{{ users }}'
   group:
     state: present
     name: '{{ item.name }}'
@@ -10,7 +10,7 @@
 
 - name: Setup system users
   become: yes
-  with_items: '{{ system.users_and_groups }}'
+  with_items: '{{ users }}'
   user:
     state: present
     name: '{{ item.name }}'
@@ -19,12 +19,3 @@
     create_home: '{{ item.create_home }}'
     group: '{{ item.name }}'
     shell: '{{ item.shell }}'
-
-- name: Add ansible user to groups
-  become: yes
-  with_items: '{{ system.user_groups }}'
-  user:
-    state: present
-    name: '{{ ansible_user_id }}'
-    append: yes
-    groups: '{{ item }}'

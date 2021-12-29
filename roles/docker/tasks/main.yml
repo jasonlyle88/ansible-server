@@ -15,7 +15,8 @@
 
 - name: Add user to docker group
   become: true
+  with_items: '{{ docker_users }}'
   user:
-    name: '{{ ansible_user_id }}'
+    name: '{{ item }}'
     groups: 'docker'
     append: 'yes'

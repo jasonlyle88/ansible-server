@@ -26,7 +26,7 @@
   - role: user_groups
     vars:
       username: '{{ ansible_user_id }}'
-      groups: '{{ system.user_groups }}'
+      user_groups: '{{ system.user_groups }}'
   - ssh
   - shell
   - docker

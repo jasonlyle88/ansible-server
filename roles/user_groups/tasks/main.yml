@@ -1,21 +1,9 @@
 ---
-- name: Setup system groups
+- name: Add user to groups
   become: yes
-  with_items: '{{ users }}'
-  group:
-    state: present
-    name: '{{ item.name }}'
-    gid: '{{ item.gid }}'
-    system: '{{ item.system }}'
-
-- name: Setup system users
-  become: yes
-  with_items: '{{ users }}'
+  with_items: '{{ user_groups }}'
   user:
     state: present
-    name: '{{ item.name }}'
-    uid: '{{ item.uid }}'
-    system: '{{ item.system }}'
-    create_home: '{{ item.create_home }}'
-    group: '{{ item.name }}'
-    shell: '{{ item.shell }}'
+    append: yes
+    name: '{{ username }}'
+    groups: '{{ item }}'

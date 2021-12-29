@@ -4,7 +4,7 @@
   with_items: '{{ users }}'
   group:
     state: present
-    name: '{{ item.name }}'
+    name: '{{ item.username }}'
     gid: '{{ item.gid }}'
     system: '{{ item.system }}'
 
@@ -13,9 +13,9 @@
   with_items: '{{ users }}'
   user:
     state: present
-    name: '{{ item.name }}'
+    name: '{{ item.username }}'
     uid: '{{ item.uid }}'
     system: '{{ item.system }}'
     create_home: '{{ item.create_home }}'
-    group: '{{ item.name }}'
+    group: '{{ item.username }}'
     shell: '{{ item.shell }}'

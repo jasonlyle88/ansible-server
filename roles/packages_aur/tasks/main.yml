@@ -7,6 +7,7 @@
   #   name: "{{ item.name }}"
   #   extra_args: "{{ '--removemake' if item.remove_make }}"
   kewlfft.aur.aur:
+    use: yay
     name: "{{ item.name }}"
     state: present
     extra_args: "{{ '--removemake' if item.remove_make }}"

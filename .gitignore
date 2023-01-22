@@ -2,3 +2,4 @@
 *.code-workspace
 bootstrap/**
 bootstrap.iso
+**/scratchpad.txt

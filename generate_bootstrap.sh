@@ -19,6 +19,8 @@ function main() {
 
     mkdir "${bootstrapDir}"
 
+    chmod a+x "${bootstrapScript}"
+
     cp -a "${bootstrapScript}" "${bootstrapDir}"
     cp -a "${gpgDir}" "${bootstrapDir}"
 

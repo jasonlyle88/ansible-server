@@ -1,8 +1,13 @@
 ---
 - name: Install AUR packages
   with_items: "{{ aur_packages }}"
-  community.general.pacman:
-    executable: yay
-    state: present
+  # community.general.pacman:
+  #   executable: yay
+  #   state: present
+  #   name: "{{ item.name }}"
+  #   extra_args: "{{ '--removemake' if item.remove_make }}"
+  kewlftt.aur.aur:
     name: "{{ item.name }}"
+    state: present
     extra_args: "{{ '--removemake' if item.remove_make }}"
+    aur_only: yes

@@ -1,0 +1,8 @@
+---
+collections:
+  - name: community.general
+  - name: kewlfft.aur
+
+roles:
+  - name: coreyramirezgomez.ohmyzsh
+  - name: diodonfrost.p10k

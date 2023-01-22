@@ -6,7 +6,7 @@
   #   state: present
   #   name: "{{ item.name }}"
   #   extra_args: "{{ '--removemake' if item.remove_make }}"
-  kewlftt.aur.aur:
+  kewlfft.aur.aur:
     name: "{{ item.name }}"
     state: present
     extra_args: "{{ '--removemake' if item.remove_make }}"

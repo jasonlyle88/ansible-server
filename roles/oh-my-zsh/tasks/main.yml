@@ -1,10 +1,14 @@
 ---
 - name: Install and configure Oh-My-Zsh
-  ansible.builtin.include_role:
-    name: coreyramirezgomez.ohmyzsh
-  vars:
+  # ansible.builtin.include_role:
+  #   name: coreyramirezgomez.ohmyzsh
+  # vars:
+  #   ohmyzsh_plugins: '{{ oh-my-zsh-config.builtin-plugins }}'
+  #   ohmyzsh_custom_plugins: '{{ oh-my-zsh-config.custom-plugins }}'
+  coreyramirezgomez.ohmyzsh:
     ohmyzsh_plugins: '{{ oh-my-zsh-config.builtin-plugins }}'
     ohmyzsh_custom_plugins: '{{ oh-my-zsh-config.custom-plugins }}'
+
 
 - name: Install and configure PowerLevel10k theme for Oh-My-Zsh
   ansible.builtin.include_role:

@@ -31,4 +31,4 @@
   - role: docker
     vars:
       docker_users: '{{ ansible_user_id }}'
-  # - role: oh-my-zsh
+  - role: oh-my-zsh

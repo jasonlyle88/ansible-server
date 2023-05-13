@@ -1,14 +1,34 @@
 ---
 - name: Install and configure Oh-My-Zsh
-  # ansible.builtin.include_role:
-  #   name: coreyramirezgomez.ohmyzsh
-  # vars:
-  #   ohmyzsh_plugins: '{{ oh-my-zsh-config.builtin-plugins }}'
-  #   ohmyzsh_custom_plugins: '{{ oh-my-zsh-config.custom-plugins }}'
-  coreyramirezgomez.ohmyzsh:
+  ansible.builtin.include_role:
+    name: coreyramirezgomez.ohmyzsh
+  vars:
     ohmyzsh_plugins: '{{ oh-my-zsh-config.builtin-plugins }}'
     ohmyzsh_custom_plugins: '{{ oh-my-zsh-config.custom-plugins }}'
-
+    ohmyzsh_case_sensitive: 'false'
+    ohmyzsh_hyphen_insensitive: 'false'
+    ohmyzsh_disable_auto_update: 'true'
+    ohmyzsh_disable_update_prompt: 'true'
+    ohmyzsh_update_zsh_days: 13
+    ohmyzsh_disable_magic_functions: 'false'
+    ohmyzsh_disable_ls_colors: 'false'
+    ohmyzsh_disable_auto_title: 'false'
+    ohmyzsh_enable_correction: 'false'
+    ohmyzsh_completion_waiting_dots: 'false'
+    ohmyzsh_disable_untracked_files_dirty: 'false'
+    ohmyzsh_hist_stamps: 'mm/dd/yyyy'
+    ohmyzsh_custom_path: '{{ ansible_env.home }}/.oh-my-zsh/custom'
+    # What should this be?
+    ohmyzsh_manpath: '/usr/local/man:$MANPATH'
+    ohmyzsh_lang: 'en_US.UTF-8'
+    ohmyzsh_editor: 'emacs'
+    ohmyzsh_disable_compfix: 'false'
+    ohmyzsh_extra_configuration_head_freeform: |-
+      # Uncomment this line to enable zsh/zprof
+      # Once uncommented, reload the shell and run zprof to get the profile output
+      # This will profile the loading time of everything
+      # After loading, run `zprof > zprof.out` to get output
+      # zmodload zsh/zprof
 
 - name: Install and configure PowerLevel10k theme for Oh-My-Zsh
   ansible.builtin.include_role:
@@ -27,20 +47,3 @@
     p10k_prompt_spacing: compact
     p10k_prompt_flow: concise
     p10k_transient_prompt: no
-# - role: coreyramirezgomez.ohmyzsh
-  #   ohmyzsh_plugins: '{{ oh-my-zsh-config.builtin-plugins }}'
-  #   ohmyzsh_custom_plugins: '{{ oh-my-zsh-config.custom-plugins }}'
-  # - role: diodonfrost.p10k
-  #   zsh_plugin: ohmyzsh
-  #   p10k_prompt_style: rainbow
-  #   p10k_prompt_time: 12-hour
-  #   p10k_prompt_separator: angled
-  #   p10k_prompt_head: sharp
-  #   p10k_prompt_tails: flat
-  #   p10k_prompt_height: two-lines
-  #   p10k_prompt_connection: solid
-  #   p10k_prompt_connection_color: lightest
-  #   p10k_prompt_frame: no
-  #   p10k_prompt_spacing: compact
-  #   p10k_prompt_flow: concise
-  #   p10k_transient_prompt: no

@@ -17,7 +17,7 @@
     ohmyzsh_completion_waiting_dots: 'false'
     ohmyzsh_disable_untracked_files_dirty: 'false'
     ohmyzsh_hist_stamps: 'mm/dd/yyyy'
-    ohmyzsh_custom_path: '{{ ansible_env.home }}/.oh-my-zsh/custom'
+    ohmyzsh_custom_path: '{{ ansible_env.HOME }}/.oh-my-zsh/custom'
     # What should this be?
     ohmyzsh_manpath: '/usr/local/man:$MANPATH'
     ohmyzsh_lang: 'en_US.UTF-8'

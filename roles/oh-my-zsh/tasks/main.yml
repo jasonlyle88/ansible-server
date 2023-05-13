@@ -3,8 +3,8 @@
   ansible.builtin.include_role:
     name: coreyramirezgomez.ohmyzsh
   vars:
-    ohmyzsh_plugins: '{{ oh_my_zsh_config.builtin-plugins }}'
-    ohmyzsh_custom_plugins: '{{ oh_my_zsh_config.custom-plugins }}'
+    ohmyzsh_plugins: '{{ oh_my_zsh_config.builtin_plugins }}'
+    ohmyzsh_custom_plugins: '{{ oh_my_zsh_config.custom_plugins }}'
     ohmyzsh_case_sensitive: 'false'
     ohmyzsh_hyphen_insensitive: 'false'
     ohmyzsh_disable_auto_update: 'true'

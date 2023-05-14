@@ -37,6 +37,9 @@
     ansible.builtin.shell:
         cmd: >-
             zsh -c 'source "{{ ansible_env.HOME }}/.zshrc"; if [[ -n "${plugins[*]}" ]]; then omz plugin disable "${plugins[@]}"; fi'
+-   name: Fix plugins variable definition
+    ansible.builtin.shell:
+        cmd: sed -i 's|^plugins=$|plugins=()|' "{{ ansible_env.HOME }}/.zshrc"
 -   name: Enable Plugins
     ansible.builtin.shell:
         cmd: >-

@@ -4,5 +4,4 @@ collections:
   - name: kewlfft.aur
 
 roles:
-  - name: coreyramirezgomez.ohmyzsh
   - name: diodonfrost.p10k

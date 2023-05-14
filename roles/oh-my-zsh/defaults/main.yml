@@ -4,5 +4,6 @@ omz_update_fequency_days: 13
 omz_theme: "robbyrussell"
 omz_custom_plugins: []
 omz_enabled_plugins: []
-omz_prefix_lines: []
-omz_postfix_lines: []
+omz_file_prefix_lines: []
+omz_source_prefix_lines: []
+omz_file_postfix_lines: []

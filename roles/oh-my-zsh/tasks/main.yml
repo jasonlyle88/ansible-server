@@ -34,8 +34,9 @@
     loop_control:
         loop_var: "loop_var_custom_plugin"
 -   name: Disable Current Plugins
-    shell: >-
-        zsh -c 'source "{{ ansible_env.HOME }}/.zshrc"; if [[ ${#plugins[@]} -gt 0 ]]; then omz plugin disable "${plugins[@]}"; fi'
+    shell:
+        cmd: >-
+            zsh -c 'source "{{ ansible_env.HOME }}/.zshrc"; if [[ -n "${plugins[*]}" ]]; then omz plugin disable "${plugins[@]}"; fi'
 # -   name: Enable Plugins
 #     shell: >-
 #         zsh -c 'source "{{ ansible_env.HOME }}/.zshrc"; then omz plugin enable {{ loop_var_plugin_enable }}'

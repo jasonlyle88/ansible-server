@@ -48,7 +48,10 @@
     loop_control:
         loop_var: "loop_var_plugin_enable"
 -   name: Change Default Shell
-    ansible.builtin.shell: chsh -s "{{ omz_zsh_path }}"
-    when: omz_default_shell != omz_zsh_path
+    # ansible.builtin.shell: chsh -s "{{ omz_zsh_path }}"
+    # when: omz_default_shell != omz_zsh_path
+    user:
+        name: "{{ lookup('ansible.builtin.env', 'USER') }}"
+        shell: "{{ omz_zsh_path }}"
 
 #TODO: Add in PowerLevel10k download/install/configuration

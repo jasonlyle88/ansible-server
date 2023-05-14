@@ -1,7 +1,8 @@
 ---
--   name: Gather Facts
+-   name: Gather Facts (1)
     shell: which zsh
     register: which_zsh
+-   name: Gather Facts (2)
     ansible.builtin.set_fact:
         omz_zsh_path: "{{ zsh.stdout_lines[0] }}"
         omz_default_shell: "{{ lookup('ansible.builtin.env', 'SHELL') }}"
@@ -42,5 +43,5 @@
         loop_var: "loop_var_plugin_enable"
 -   name: Change Default Shell
     shell: chsh -s "{{ omz_zsh_path }}"
-    # when: omz_default_shell is match("{{ omz_zsh_path }}")
+    # when: omz_default_shell is match("{{ omz_zsh_path }}")1p
     when: omz_default_shell == omz_zsh_path

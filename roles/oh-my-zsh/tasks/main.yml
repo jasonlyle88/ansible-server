@@ -47,7 +47,7 @@
     with_items: "{{ omz_enabled_plugins }}"
     loop_control:
         loop_var: "loop_var_plugin_enable"
-# -   name: Change Default Shell
-#     ansible.builtin.shell: chsh -s "{{ omz_zsh_path }}"
-#     # when: omz_default_shell is match("{{ omz_zsh_path }}")1p
-#     when: omz_default_shell == omz_zsh_path
+-   name: Change Default Shell
+    ansible.builtin.shell: chsh -s "{{ omz_zsh_path }}"
+    # when: omz_default_shell is match("{{ omz_zsh_path }}")1p
+    when: omz_default_shell == omz_zsh_path

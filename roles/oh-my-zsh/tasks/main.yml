@@ -29,7 +29,7 @@
     git:
         repo: "{{ loop_var_custom_plugin.repo }}"
         dest: "{{ omz_custom_path }}/plugins/{{ loop_var_custom_plugin.dest }}"
-        update: yes
+        update: no
     with_items: "{{ omz_custom_plugins }}"
     loop_control:
         loop_var: "loop_var_custom_plugin"
@@ -48,8 +48,6 @@
     loop_control:
         loop_var: "loop_var_plugin_enable"
 -   name: Change Default Shell
-    # ansible.builtin.shell: chsh -s "{{ omz_zsh_path }}"
-    # when: omz_default_shell != omz_zsh_path
     become: true
     user:
         name: "{{ lookup('ansible.builtin.env', 'USER') }}"

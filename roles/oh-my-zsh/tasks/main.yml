@@ -1,18 +1,18 @@
 ---
 -   name: Gather Facts (1)
-    shell: 'which zsh'
+    ansible.builtin.shell: 'which zsh'
     register: which_zsh
 -   name: Gather Facts (2)
     ansible.builtin.set_fact:
         omz_zsh_path: "{{ which_zsh.stdout_lines[0] }}"
-        omz_default_shell: "{{ lookup('ansible.builtin.env', 'SHELL') }}"
+        omz_default_ansible.builtin.shell: "{{ lookup('ansible.builtin.env', 'SHELL') }}"
         omz_custom_path: "{{ ansible_env.HOME }}/.oh-my-zsh"
 -   name: Check for oh-my-zsh
     stat:
         path: "{{ omz_custom_path }}"
     register: omz
 -   name: Install oh-my-zsh
-    shell: 'sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended'
+    ansible.builtin.shell: 'sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended'
     when: not omz.stat.exists
 -   name: Ensure ZSH_CUSTOM Directories Exist
     file:
@@ -34,16 +34,17 @@
     loop_control:
         loop_var: "loop_var_custom_plugin"
 -   name: Disable Current Plugins
-    shell:
+    ansible.builtin.shell:
         cmd: >-
             zsh -c 'source "{{ ansible_env.HOME }}/.zshrc"; if [[ -n "${plugins[*]}" ]]; then omz plugin disable "${plugins[@]}"; fi'
-# -   name: Enable Plugins
-#     shell: >-
-#         zsh -c 'source "{{ ansible_env.HOME }}/.zshrc"; then omz plugin enable {{ loop_var_plugin_enable }}'
-#     with_items: "{{ omz_enabled_plugins }}"
-#     loop_control:
-#         loop_var: "loop_var_plugin_enable"
+-   name: Enable Plugins
+    ansible.builtin.shell:
+        cmd: >-
+            zsh -c 'source "{{ ansible_env.HOME }}/.zshrc"; omz plugin enable "{{ loop_var_plugin_enable }}"'
+    with_items: "{{ omz_enabled_plugins }}"
+    loop_control:
+        loop_var: "loop_var_plugin_enable"
 # -   name: Change Default Shell
-#     shell: chsh -s "{{ omz_zsh_path }}"
+#     ansible.builtin.shell: chsh -s "{{ omz_zsh_path }}"
 #     # when: omz_default_shell is match("{{ omz_zsh_path }}")1p
 #     when: omz_default_shell == omz_zsh_path

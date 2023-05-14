@@ -32,16 +32,16 @@
     with_items: "{{ ohmyzsh_custom_plugins }}"
     loop_control:
         loop_var: "loop_var_custom_plugin"
--   name: Disable Current Plugins
-    shell: >-
-        zsh -c 'source "{{ ansible_env.HOME }}/.zshrc"; if [[ ${#plugins[@]} -gt 0 ]]; then omz plugin disable "${plugins[@]}"; fi'
--   name: Enable Plugins
-    shell: >-
-        zsh -c 'source "{{ ansible_env.HOME }}/.zshrc"; then omz plugin enable {{ loop_var_plugin_enable }}'
-    with_items: "{{ omz_enabled_plugins }}"
-    loop_control:
-        loop_var: "loop_var_plugin_enable"
--   name: Change Default Shell
-    shell: chsh -s "{{ omz_zsh_path }}"
-    # when: omz_default_shell is match("{{ omz_zsh_path }}")1p
-    when: omz_default_shell == omz_zsh_path
+# -   name: Disable Current Plugins
+#     shell: >-
+#         zsh -c 'source "{{ ansible_env.HOME }}/.zshrc"; if [[ ${#plugins[@]} -gt 0 ]]; then omz plugin disable "${plugins[@]}"; fi'
+# -   name: Enable Plugins
+#     shell: >-
+#         zsh -c 'source "{{ ansible_env.HOME }}/.zshrc"; then omz plugin enable {{ loop_var_plugin_enable }}'
+#     with_items: "{{ omz_enabled_plugins }}"
+#     loop_control:
+#         loop_var: "loop_var_plugin_enable"
+# -   name: Change Default Shell
+#     shell: chsh -s "{{ omz_zsh_path }}"
+#     # when: omz_default_shell is match("{{ omz_zsh_path }}")1p
+#     when: omz_default_shell == omz_zsh_path

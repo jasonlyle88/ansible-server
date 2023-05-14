@@ -1,10 +1,10 @@
 ---
 -   name: Gather Facts (1)
-    shell: which zsh
+    shell: 'which zsh'
     register: which_zsh
 -   name: Gather Facts (2)
     ansible.builtin.set_fact:
-        omz_zsh_path: "{{ zsh.stdout_lines[0] }}"
+        omz_zsh_path: "{{ which_zsh.stdout_lines[0] }}"
         omz_default_shell: "{{ lookup('ansible.builtin.env', 'SHELL') }}"
 -   name: Check for oh-my-zsh
     stat:

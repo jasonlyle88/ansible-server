@@ -5,7 +5,7 @@
 -   name: Gather Facts (2)
     ansible.builtin.set_fact:
         omz_zsh_path: "{{ which_zsh.stdout_lines[0] }}"
-        omz_default_ansible.builtin.shell: "{{ lookup('ansible.builtin.env', 'SHELL') }}"
+        omz_default_shell: "{{ lookup('ansible.builtin.env', 'SHELL') }}"
         omz_custom_path: "{{ ansible_env.HOME }}/.oh-my-zsh"
 -   name: Check for oh-my-zsh
     stat:

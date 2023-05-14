@@ -32,3 +32,6 @@
     vars:
       docker_users: '{{ ansible_user_id }}'
   - role: oh-my-zsh
+    vars:
+      omz_custom_plugins: '{{ oh_my_zsh_config.custom_plugins }}'
+      omz_enabled_plugins: '{{ oh_my_zsh_config.enabled_plugins }}'

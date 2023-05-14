@@ -1,49 +1,46 @@
 ---
-- name: Install and configure Oh-My-Zsh
-  ansible.builtin.include_role:
-    name: coreyramirezgomez.ohmyzsh
-  vars:
-    ohmyzsh_plugins: '{{ oh_my_zsh_config.builtin_plugins }}'
-    ohmyzsh_custom_plugins: '{{ oh_my_zsh_config.custom_plugins }}'
-    ohmyzsh_case_sensitive: 'false'
-    ohmyzsh_hyphen_insensitive: 'false'
-    ohmyzsh_disable_auto_update: 'true'
-    ohmyzsh_disable_update_prompt: 'true'
-    ohmyzsh_update_zsh_days: 13
-    ohmyzsh_disable_magic_functions: 'false'
-    ohmyzsh_disable_ls_colors: 'false'
-    ohmyzsh_disable_auto_title: 'false'
-    ohmyzsh_enable_correction: 'false'
-    ohmyzsh_completion_waiting_dots: 'false'
-    ohmyzsh_disable_untracked_files_dirty: 'false'
-    ohmyzsh_hist_stamps: 'mm/dd/yyyy'
-    ohmyzsh_custom_path: '{{ ansible_env.HOME }}/.oh-my-zsh/custom'
-    # What should this be?
-    ohmyzsh_manpath: '/usr/local/man:$MANPATH'
-    ohmyzsh_lang: 'en_US.UTF-8'
-    ohmyzsh_editor: 'emacs'
-    ohmyzsh_disable_compfix: 'false'
-    ohmyzsh_extra_configuration_head_freeform: |-
-      # Uncomment this line to enable zsh/zprof
-      # Once uncommented, reload the shell and run zprof to get the profile output
-      # This will profile the loading time of everything
-      # After loading, run `zprof > zprof.out` to get output
-      # zmodload zsh/zprof
-
-- name: Install and configure PowerLevel10k theme for Oh-My-Zsh
-  ansible.builtin.include_role:
-    name: diodonfrost.p10k
-  vars:
-    zsh_plugin: ohmyzsh
-    p10k_prompt_style: rainbow
-    p10k_prompt_time: 12-hour
-    p10k_prompt_separator: angled
-    p10k_prompt_head: sharp
-    p10k_prompt_tails: flat
-    p10k_prompt_height: two-lines
-    p10k_prompt_connection: solid
-    p10k_prompt_connection_color: lightest
-    p10k_prompt_frame: no
-    p10k_prompt_spacing: compact
-    p10k_prompt_flow: concise
-    p10k_transient_prompt: no
+-   name: Gather Facts
+    shell: which zsh
+    register: which_zsh
+    ansible.builtin.set_fact:
+        omz_zsh_path: "{{ zsh.stdout_lines[0] }}"
+        omz_default_shell: "{{ lookup('ansible.builtin.env', 'SHELL') }}"
+-   name: Check for oh-my-zsh
+    stat:
+        path: "{{ ansible_env.HOME }}/.oh-my-zsh"
+    register: omz
+-   name: Install oh-my-zsh
+    shell: 'sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended'
+    when: not omz.stat.exists
+-   name: Ensure ZSH_CUSTOM Directories Exist
+    file:
+        state: directory
+        path: "{{ loop_var_custom_path }}"
+        owner: "{{ ansible_user }}"
+        mode: 0755
+    with_items:
+        - "{{ ohmyzsh_custom_path }}/plugins"
+        - "{{ ohmyzsh_custom_path }}/themes"
+    loop_control:
+        loop_var: "loop_var_custom_path"
+-   name: Get Custom Plugins
+    git:
+        repo: "{{ loop_var_custom_plugin.repo }}"
+        dest: "{{ ohmyzsh_custom_path }}/plugins/{{ loop_var_custom_plugin.dest }}"
+        update: yes
+    with_items: "{{ ohmyzsh_custom_plugins }}"
+    loop_control:
+        loop_var: "loop_var_custom_plugin"
+-   name: Disable Current Plugins
+    shell: >-
+        zsh -c 'source "{{ ansible_env.HOME }}/.zshrc"; if [[ ${#plugins[@]} -gt 0 ]]; then omz plugin disable "${plugins[@]}"; fi'
+-   name: Enable Plugins
+    shell: >-
+        zsh -c 'source "{{ ansible_env.HOME }}/.zshrc"; then omz plugin enable {{ loop_var_plugin_enable }}'
+    with_items: "{{ omz_enabled_plugins }}"
+    loop_control:
+        loop_var: "loop_var_plugin_enable"
+-   name: Change Default Shell
+    shell: chsh -s "{{ omz_zsh_path }}"
+    # when: omz_default_shell is match("{{ omz_zsh_path }}")
+    when: omz_default_shell == omz_zsh_path

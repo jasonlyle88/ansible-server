@@ -50,6 +50,7 @@
 -   name: Change Default Shell
     # ansible.builtin.shell: chsh -s "{{ omz_zsh_path }}"
     # when: omz_default_shell != omz_zsh_path
+    become: true
     user:
         name: "{{ lookup('ansible.builtin.env', 'USER') }}"
         shell: "{{ omz_zsh_path }}"

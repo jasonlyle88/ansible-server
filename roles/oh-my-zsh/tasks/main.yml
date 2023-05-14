@@ -6,9 +6,10 @@
     ansible.builtin.set_fact:
         omz_zsh_path: "{{ which_zsh.stdout_lines[0] }}"
         omz_default_shell: "{{ lookup('ansible.builtin.env', 'SHELL') }}"
+        omz_custom_path: "{{ ansible_env.HOME }}/.oh-my-zsh"
 -   name: Check for oh-my-zsh
     stat:
-        path: "{{ ansible_env.HOME }}/.oh-my-zsh"
+        path: "{{ omz_custom_path }}"
     register: omz
 -   name: Install oh-my-zsh
     shell: 'sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended'
@@ -20,16 +21,16 @@
         owner: "{{ ansible_user }}"
         mode: 0755
     with_items:
-        - "{{ ohmyzsh_custom_path }}/plugins"
-        - "{{ ohmyzsh_custom_path }}/themes"
+        - "{{ omz_custom_path }}/plugins"
+        - "{{ omz_custom_path }}/themes"
     loop_control:
         loop_var: "loop_var_custom_path"
 -   name: Get Custom Plugins
     git:
         repo: "{{ loop_var_custom_plugin.repo }}"
-        dest: "{{ ohmyzsh_custom_path }}/plugins/{{ loop_var_custom_plugin.dest }}"
+        dest: "{{ omz_custom_path }}/plugins/{{ loop_var_custom_plugin.dest }}"
         update: yes
-    with_items: "{{ ohmyzsh_custom_plugins }}"
+    with_items: "{{ omz_custom_plugins }}"
     loop_control:
         loop_var: "loop_var_custom_plugin"
 # -   name: Disable Current Plugins

@@ -53,4 +53,10 @@
         name: "{{ lookup('ansible.builtin.env', 'USER') }}"
         shell: "{{ omz_zsh_path }}"
 
-#TODO: Add in PowerLevel10k download/install/configuration
+# TODO: Write and call script for updating settings
+# TODO: Write script for adding additional code blocks before sourcing omz
+
+# TODO: Add in PowerLevel10k download/install/configuration
+
+# TODO: Write task for prefixing lines onto the .zshrc file
+# TODO: wrtie task for postfixing lines onto the .zshrc file

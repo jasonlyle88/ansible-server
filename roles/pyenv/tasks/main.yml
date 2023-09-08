@@ -1,13 +1,4 @@
 ---
-# -   name: Setup Python versions
-#     ansible.builtin.include_role:
-#         name: avanov.pyenv
-#     vars:
-#         pyenv_python_versions:
-#             - "3.10"
-#         pyenv_global: "3.10"
-#         pyenv_virtualenvs: []
-
 -   name: Install PyEnv and dependencies
     become: true
     community.general.pacman:

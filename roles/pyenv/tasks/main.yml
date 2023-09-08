@@ -1,0 +1,35 @@
+---
+# -   name: Setup Python versions
+#     ansible.builtin.include_role:
+#         name: avanov.pyenv
+#     vars:
+#         pyenv_python_versions:
+#             - "3.10"
+#         pyenv_global: "3.10"
+#         pyenv_virtualenvs: []
+
+-   name: Install PyEnv and dependencies
+    become: true
+    community.general.pacman:
+        executable: pacman
+        state: present
+        name:
+            - pyenv
+            - base-devel
+            - openssl
+            - zlib
+            - xz
+            - tk
+
+-   name: Install Python versions
+    with_items: "{{ pyenv.python_versions }}"
+    ansible.builtin.script: install_pyenv_python_version.bash -v "{{ item }}"
+    register: pyenv_version_install
+    changed_when: pyenv_version_install.rc | int == 0
+    failed_when: pyenv_version_install.rc | int >= 2
+
+-   name: Set global Python version
+    ansible.builtin.script: set_pyenv_python_global_version.bash -v "{{ pyenv.python_global_version }}"
+    register: pyenv_set_global_version
+    changed_when: pyenv_set_global_version.rc | int == 0
+    failed_when: pyenv_set_global_version.rc | int >= 2

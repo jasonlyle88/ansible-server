@@ -11,6 +11,7 @@
   - role: hostname
     vars:
       hostname: '{{ system.hostname }}'
+  - role: pyenv
   - role: packages_official
     vars:
       official_packages: '{{ packages.main }}'

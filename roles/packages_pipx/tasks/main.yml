@@ -1,0 +1,6 @@
+---
+-   name: Install pipx packages
+    with_items: "{{ pipx_packages }}"
+    community.general.pipx:
+        state: present
+        name: "{{ item }}"

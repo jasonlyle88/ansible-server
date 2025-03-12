@@ -27,6 +27,9 @@
   - role: packages_snap
     vars:
       snap_packages: '{{ packages.snap }}'
+  - role: packages_pipx
+    vars:
+      pipx_packages: '{{ packages.pipx }}'
   - role: users
     vars:
       users: '{{ system.users }}'

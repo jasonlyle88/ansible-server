@@ -1,0 +1,50 @@
+---
+-   name: Remove Unrequired Dependent Packages
+    become: true
+    ansible.builtin.lineinfile:
+        path: /etc/pamac.conf
+        regexp: '^#?\s*RemoveUnrequiredDeps'
+        line: "{{ 'RemoveUnrequiredDeps' if remove_unrequired_deps else '#RemoveUnrequiredDeps' }}"
+        state: present
+    register: pamac_conf_result
+    changed_when: pamac_conf_result.changed
+
+-   name: Configure AUR Support
+    become: true
+    ansible.builtin.lineinfile:
+        path: /etc/pamac.conf
+        regexp: '^#?\s*EnableAUR'
+        line: "{{ 'EnableAUR' if aur_support else '#EnableAUR' }}"
+        state: present
+    register: pamac_conf_result
+    changed_when: pamac_conf_result.changed
+
+-   name: Configure AUR Updates
+    become: true
+    ansible.builtin.lineinfile:
+        path: /etc/pamac.conf
+        regexp: '^#?\s*CheckAURUpdates'
+        line: "{{ 'CheckAURUpdates' if check_aur_updates else '#CheckAURUpdates' }}"
+        state: present
+    register: pamac_conf_result
+    changed_when: pamac_conf_result.changed
+
+-   name: Configure FlatPak Support
+    become: true
+    ansible.builtin.lineinfile:
+        path: /etc/pamac.conf
+        regexp: '^#?\s*EnableFlatpak'
+        line: "{{ 'EnableFlatpak' if flatpak_support else '#EnableFlatpak' }}"
+        state: present
+    register: pamac_conf_result
+    changed_when: pamac_conf_result.changed
+
+-   name: Configure Snap Support
+    become: true
+    ansible.builtin.lineinfile:
+        path: /etc/pamac.conf
+        regexp: '^#?\s*EnableSnap'
+        line: "{{ 'EnableSnap' if snap_support else '#EnableSnap' }}"
+        state: present
+    register: pamac_conf_result
+    changed_when: pamac_conf_result.changed

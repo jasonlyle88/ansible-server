@@ -1,0 +1,6 @@
+---
+remove_unrequired_deps: no
+aur_support: no
+check_aur_updates: no
+flatpak_support: no
+snap_support: no

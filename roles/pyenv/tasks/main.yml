@@ -4,16 +4,17 @@
     community.general.pacman:
         executable: pacman
         state: present
-        reason: "explicit"
-        reason_for: "all"
+        reason: explicit
+        reason_for: all
         name: pyenv
 
 -   name: Install PyEnv Python build dependencies
+    become: true
     community.general.pacman:
         executable: pacman
         state: present
-        reason: "dependency"
-        reason_for: "new"
+        reason: dependency
+        reason_for: new
         name:
             - base-devel
             - openssl

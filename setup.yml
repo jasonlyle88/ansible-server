@@ -12,6 +12,12 @@
     vars:
       hostname: '{{ system.hostname }}'
   - role: pyenv
+  - role: configure_pamac
+    vars:
+      remove_unrequired_deps: yes
+      aur_support: yes
+      check_aur_updates: yes
+      snap_support: yes
   - role: packages_official
     vars:
       official_packages: '{{ packages.main }}'

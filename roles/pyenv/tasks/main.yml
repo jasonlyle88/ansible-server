@@ -21,6 +21,38 @@
             - zlib
             - xz
             - tk
+            - jdk
+            - ant
+
+-   name: Install PyEnv Update (Plugin)
+    ansible.builtin.git:
+        repo: https://github.com/pyenv/pyenv-update.git
+        update: no
+        dest: "{{ lookup('env', 'PYENV_ROOT', default=ansible_env.HOME + '/.pyenv') }}/plugins/pyenv-update"
+
+-   name: Install PyEnv Doctor (Plugin)
+    ansible.builtin.git:
+        repo: https://github.com/pyenv/pyenv-doctor.git
+        update: no
+        dest: "{{ lookup('env', 'PYENV_ROOT', default=ansible_env.HOME + '/.pyenv') }}/plugins/pyenv-doctor"
+
+-   name: Install PyEnv Users (Plugin)
+    ansible.builtin.git:
+        repo: https://github.com/pyenv/pyenv-users.git
+        update: no
+        dest: "{{ lookup('env', 'PYENV_ROOT', default=ansible_env.HOME + '/.pyenv') }}/plugins/pyenv-users"
+
+-   name: Install PyEnv VirtualEnv (Plugin)
+    ansible.builtin.git:
+        repo: https://github.com/pyenv/pyenv-virtualenv.git
+        update: no
+        dest: "{{ lookup('env', 'PYENV_ROOT', default=ansible_env.HOME + '/.pyenv') }}/plugins/pyenv-virtualenv"
+
+-   name: Run PyEnv Doctor
+    ansible.builtin.shell: 'pyenv doctor -a'
+    register: pyenv_version_install
+    changed_when: pyenv_version_install.rc | int < 0
+    failed_when: pyenv_version_install.rc | int > 0
 
 -   name: Install Python versions
     with_items: "{{ pyenv.python_versions }}"
